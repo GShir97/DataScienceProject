@@ -1,3 +1,5 @@
+import json
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
@@ -106,14 +108,16 @@ def run_scraping():
 
 
 if __name__ == '__main__':
-    run_scraping()
-
+    try:
+        run_scraping()
+    except:
+        with open('data.json', 'w') as f:
+            f.write(json.dumps(category_data))
 
     # driver.get('https://www.mako.co.il/news-military?partner=NewsNavBar')
     # article_link = driver.find_element(By.XPATH, "//section[@class='regular content colx2']/ul")
     # test extract_data_from_article
     # extract_data_from_article()
-
 
 # Close the web driver
 driver.quit()
