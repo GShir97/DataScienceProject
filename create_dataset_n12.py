@@ -1,12 +1,10 @@
 import json
+import os
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common import NoSuchElementException
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.remote.webelement import WebElement
 
 # Use ChromeDriver as the web driver
 driver = webdriver.Chrome()
@@ -22,7 +20,11 @@ category_url_map = {
     "entertainment": "https://www.mako.co.il/news-entertainment"
 }
 
-category_data = {
+# category_data = {
+# }
+
+all_articles = {
+    # "[name]":[data]
 }
 
 
@@ -34,7 +36,7 @@ def extract_data_from_article(element: WebElement, data):
     driver.switch_to.window(driver.window_handles[-1])
 
     article_full_body = driver.find_element(By.XPATH, "//div[@id='article-wrap']/article")
-    header_top = article_full_body.find_element(By.XPATH, ".//section[@class='article-header']")
+    header_top = article_full_body.find_element(By.XPATH, ".//section[contains(@class,'article-header')]")
     header_container = header_top.find_element(By.XPATH, "./header")
     data['long_title'] = header_container.find_element(By.XPATH, "./h1").text
     data['short_description'] = header_container.find_element(By.XPATH, "./h2").text
@@ -47,7 +49,10 @@ def extract_data_from_article(element: WebElement, data):
     display_date_elem = header_container.find_element(By.XPATH, ".//span[@class='display-date']")
     display_date_text = display_date_elem.text
     dates = display_date_text.strip().split('|')[1:]
-    data['publish_timedate'], data['last_update_timedate'] = [date.strip('פורסםעודכן ') for date in dates]
+    dates_clean = [date.strip('פורסםעודכן ') for date in dates]
+    data['publish_timedate'] = dates_clean[0]
+    if len(dates_clean) > 1:
+        data['last_update_timedate'] = dates_clean[1]
     data['views'] = int(header_top.find_element(By.XPATH, ".//li[@class='views']").text.replace(',', ''))
     data['category'] = article_full_body.find_element(By.XPATH, ".//nav/span/ul/li[@class=' here']").text
     content_body_elem = article_full_body.find_element(By.XPATH, ".//section[@class='article-body']")
@@ -69,7 +74,7 @@ def extract_data_from_article(element: WebElement, data):
     driver.switch_to.window(driver.window_handles[0])
 
 
-def run_scraping():
+def run_scraping(skip_existing=True):
     for category in category_url_map:
         driver.get(category_url_map[category])
 
@@ -92,32 +97,45 @@ def run_scraping():
         }
 
         # receives a link element, open it in new tab and scrap the data(from n12 category page format)
-
         articles_container = driver.find_element(By.XPATH, "//section[@class='regular content colx2']/ul")
         articles = articles_container.find_elements(By.XPATH, ".//li")
         articles_data = []
         for article in articles:
             article_link = article.find_element(By.XPATH, ".//strong/a")
             article_data['title'] = article_link.text
-            article_data['main_reporter'] = article.find_element(By.XPATH, ".//small/span").text
 
+            # skip if already exists
+            if skip_existing and article_data['title'] in all_articles:
+                continue
+
+            # scrap the articles data and add to the list
+            article_data['main_reporter'] = article.find_element(By.XPATH, ".//small/span").text
             extract_data_from_article(article_link, article_data)
-            articles_data.append(article_data)
-            pass
-        category_data[category] = articles_data
+            try:
+                articles_data.append(article_data)
+            except Exception as e:
+                print(f"Error: {e}")
+                article_data = 'error!' + str(e)
+
+            # add to all articles
+            all_articles[article_data['title']] = article_data
+            with open('articles.json', 'w', encoding='utf-8') as f:
+                f.write(
+                    json.dumps(all_articles, ensure_ascii=False, indent=2, sort_keys=True), )
 
 
 if __name__ == '__main__':
-    try:
-        run_scraping()
-    except:
-        with open('data.json', 'w') as f:
-            f.write(json.dumps(category_data))
+    # if articles.json doe not exists, create it(with utf-8 encoding to support hebrew
+    if not os.path.exists('articles.json'):
+        with open('articles.json', 'w', encoding='utf-8') as f:
+            f.write('{}')
 
-    # driver.get('https://www.mako.co.il/news-military?partner=NewsNavBar')
-    # article_link = driver.find_element(By.XPATH, "//section[@class='regular content colx2']/ul")
-    # test extract_data_from_article
-    # extract_data_from_article()
+    # load all articles
+    with open('articles.json', encoding='utf-8') as f:
+        all_articles = json.load(f)
+
+    # run the scraping (will update the articles.json file as the scraping goes)
+    run_scraping()
 
 # Close the web driver
 driver.quit()
