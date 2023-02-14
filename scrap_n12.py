@@ -72,6 +72,7 @@ def scrap_article_page(element: WebElement, data):
     content_body_elem = article_full_body.find_element(By.XPATH, ".//section[@class='article-body']")
     p_elements = content_body_elem.find_elements(By.XPATH, "./p")
     data['content'] = '\n\n'.join([p.text for p in p_elements])
+    data['url'] = driver.current_url
     # try to get the article interest (interested/not interested)
     try:
         vote_elem = driver.find_element(By.XPATH, "//div[@id='feelingsWrapper']")
@@ -121,7 +122,6 @@ def scrap_articles_list(
         current_page_btn = pagination_elem.find_element(By.XPATH, ".//a[@class='currentPage']")
         current_page = int(current_page_btn.text)
 
-
         page_from_url = int(query_params['page'][0])
         # check if the current page is the wanted one, if not, move to the wanted page
         if current_page != page_from_url:
@@ -159,7 +159,8 @@ def scrap_articles_list(
                 "article_interest": {
                     "interested": None,
                     "not_interested": None,
-                }
+                },
+                "url": "",
             }
 
             article_link = article.find_element(By.XPATH, ".//strong/a")
