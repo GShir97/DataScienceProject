@@ -1,1 +1,103 @@
 1675802531861	geckodriver	INFO	Listening on 127.0.0.1:54368
+1675892249529	geckodriver	INFO	Listening on 127.0.0.1:52748
+1675892252602	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "52749" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\golds\\AppData\\Local\\Temp\\rust_mozprofile4mRdMx"
+1675892252898	Marionette	INFO	Marionette enabled
+Dynamically enable window occlusion 0
+1675892252905	Marionette	INFO	Listening on port 52759
+Read port: 52759
+WebDriver BiDi listening on ws://127.0.0.1:52749
+1675892253049	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\golds\\AppData\\Local\\Temp\\rust_mozprofile4mRdMx\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:52749/devtools/browser/f900ee31-a145-46fd-8b77-0b0d681d244a
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892255541, line 62: unreachable code after return statement
+JavaScript error: https://static.foxnews.com/static/strike/ver/foxnews/app/section.front.v98.js, line 4: TypeError: require(...).pre is not a function
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892256948, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892257161, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892257875, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892270830, line 62: unreachable code after return statement
+JavaScript error: https://static.foxnews.com/static/strike/ver/foxnews/app/articles.v98.js, line 4: TypeError: require(...).pre is not a function
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892271557, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892271956, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892272096, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892277376, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/leap/ext/shims/ld.js?v=202301192141, line 3: unreachable code after return statement
+JavaScript error: https://foxnewsplayer-a.akamaihd.net/player/9.0.23/akamai/amp//omniture/Omniture.js, line 387: ReferenceError: s_gi is not defined
+console.error: (new TypeError("lazy.AsyncShutdown.profileBeforeChange is undefined", "resource://services-settings/Database.jsm", 510))
+JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 572: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 572: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 572: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 572: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 572: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 572: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+1675892496128	Marionette	INFO	Stopped listening on port 52759
+Dynamically enable window occlusion 1
+1675892497954	geckodriver	INFO	Listening on 127.0.0.1:53144
+1675892501034	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "53145" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\golds\\AppData\\Local\\Temp\\rust_mozprofileSiMLEG"
+1675892501373	Marionette	INFO	Marionette enabled
+Dynamically enable window occlusion 0
+1675892501378	Marionette	INFO	Listening on port 53152
+WebDriver BiDi listening on ws://127.0.0.1:53145
+Read port: 53152
+1675892501705	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\golds\\AppData\\Local\\Temp\\rust_mozprofileSiMLEG\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:53145/devtools/browser/9a02ab0b-5707-4f6b-a4c6-2b1d0c036435
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892504093, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892504247&v=v98, line 62: unreachable code after return statement
+JavaScript error: https://static.foxnews.com/static/strike/ver/foxnews/app/section.front.v98.js, line 4: TypeError: require(...).pre is not a function
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892506724, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892506850, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892508206, line 62: unreachable code after return statement
+JavaScript error: https://static.foxnews.com/static/strike/ver/foxnews/app/articles.v98.js, line 4: TypeError: require(...).pre is not a function
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892509336, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892509395, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892509979, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892510210, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892515474, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892515571, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/leap/ext/shims/ld.js?v=202301192141, line 3: unreachable code after return statement
+JavaScript error: https://foxnewsplayer-a.akamaihd.net/player/9.0.23/akamai/amp//omniture/Omniture.js, line 387: ReferenceError: s_gi is not defined
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892540317, line 62: unreachable code after return statement
+JavaScript error: https://static.foxnews.com/static/strike/ver/foxnews/app/articles.v98.js, line 4: TypeError: require(...).pre is not a function
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892540984, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892541673, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892541966, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892546264, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892546141, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/leap/ext/shims/ld.js?v=202301192141, line 3: unreachable code after return statement
+JavaScript error: https://foxnewsplayer-a.akamaihd.net/player/9.0.23/akamai/amp//omniture/Omniture.js, line 387: ReferenceError: s_gi is not defined
+console.error: (new TypeError("lazy.AsyncShutdown.profileBeforeChange is undefined", "resource://services-settings/Database.jsm", 510))
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892721968, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892722020&v=v98, line 62: unreachable code after return statement
+JavaScript error: https://static.foxnews.com/static/strike/ver/foxnews/app/section.front.v98.js, line 4: TypeError: require(...).pre is not a function
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892723044, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892723184, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892725125, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892726007, line 62: unreachable code after return statement
+1675892755337	Marionette	INFO	Stopped listening on port 53152
+Dynamically enable window occlusion 1
+1675892756870	geckodriver	INFO	Listening on 127.0.0.1:53340
+1675892759936	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "53341" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\golds\\AppData\\Local\\Temp\\rust_mozprofileuLrQGq"
+1675892760284	Marionette	INFO	Marionette enabled
+Dynamically enable window occlusion 0
+1675892760288	Marionette	INFO	Listening on port 53348
+WebDriver BiDi listening on ws://127.0.0.1:53341
+Read port: 53348
+1675892760526	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\golds\\AppData\\Local\\Temp\\rust_mozprofileuLrQGq\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:53341/devtools/browser/4170ecef-f7b2-4b66-8015-1c11ba5b05be
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892763103, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892763201&v=v98, line 62: unreachable code after return statement
+JavaScript error: https://static.foxnews.com/static/strike/ver/foxnews/app/section.front.v98.js, line 4: TypeError: require(...).pre is not a function
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892766566, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892766712, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892766805, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892768004, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892768471, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892768976, line 62: unreachable code after return statement
+JavaScript error: https://static.foxnews.com/static/strike/ver/foxnews/app/articles.v98.js, line 4: TypeError: require(...).pre is not a function
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892769001, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892769990, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892770177, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/orion/scripts/core/utils/geo.js?cb=1675892775522, line 62: unreachable code after return statement
+JavaScript warning: https://static.foxnews.com/static/leap/ext/shims/ld.js?v=202301192141, line 3: unreachable code after return statement
+JavaScript error: https://foxnewsplayer-a.akamaihd.net/player/9.0.23/akamai/amp//omniture/Omniture.js, line 387: ReferenceError: s_gi is not defined
