@@ -54,6 +54,7 @@ def scrap_article_page(element: WebElement, data):
     all_reporters = [driver.execute_script("return arguments[0].getAttribute('content');", elem) for elem in
                      all_reporters_elements]
     data['all_reporters'] = all_reporters
+    data['num_of_reporters'] = len(all_reporters)
 
     display_date_elem = header_container.find_element(By.XPATH, ".//span[@class='display-date']")
     display_date_text = display_date_elem.text
@@ -73,6 +74,13 @@ def scrap_article_page(element: WebElement, data):
     p_elements = content_body_elem.find_elements(By.XPATH, "./p")
     data['content'] = '\n\n'.join([p.text for p in p_elements])
     data['url'] = driver.current_url
+
+    ## Getting number of photos in the article
+    #photo_elements_body = content_body_elem.find_elements(By.TAG_NAME, "img")
+    #photo_elements_top = header_top.find_elements(By.TAG_NAME, "img")
+    #data['num_of_photos'] = len(photo_elements_top) + len(photo_elements_body)
+    #print("Number of photos in article:", data['num_of_photos'])
+
     # try to get the article interest (interested/not interested)
     try:
         vote_elem = driver.find_element(By.XPATH, "//div[@id='feelingsWrapper']")
@@ -88,6 +96,8 @@ def scrap_article_page(element: WebElement, data):
     except NoSuchElementException:
         print(f'No article interest for article: {data["title"]}')
         pass
+
+
 
     # close the window the article
     driver.close()
@@ -152,6 +162,7 @@ def scrap_articles_list(
                 "category": "",
                 "main_reporter": "",
                 "all_reporters": "",
+                "num_of_reporters": "",
                 "publish_timedate": "",
                 "last_update_timedate": "",
                 "content": "",
