@@ -75,12 +75,6 @@ def scrap_article_page(element: WebElement, data):
     data['content'] = '\n\n'.join([p.text for p in p_elements])
     data['url'] = driver.current_url
 
-    ## Getting number of photos in the article
-    #photo_elements_body = content_body_elem.find_elements(By.TAG_NAME, "img")
-    #photo_elements_top = header_top.find_elements(By.TAG_NAME, "img")
-    #data['num_of_photos'] = len(photo_elements_top) + len(photo_elements_body)
-    #print("Number of photos in article:", data['num_of_photos'])
-
     # try to get the article interest (interested/not interested)
     try:
         vote_elem = driver.find_element(By.XPATH, "//div[@id='feelingsWrapper']")
@@ -149,9 +143,11 @@ def scrap_articles_list(
 
         ####### scrap article data ########
         print(f"Scraping page {current_page} of {pages}")
-        articles_container = driver.find_element(By.XPATH, "//section[@class='regular content colx2']/ul")
 
-        articles = articles_container.find_elements(By.XPATH, ".//li")
+        if current_page == 1:
+            articles = driver.find_elements(By.XPATH, "//html/body/div[6]/main/section[1]/section[3]/ul/li")
+        else:
+            articles = driver.find_elements(By.XPATH, "//html/body/div[6]/main/section[1]/section[1]/ul/li | //html/body/div[6]/main/section[1]/section[3]/ul/li")
 
         for article in articles:
             # create a new article data(with default empty values)
@@ -211,7 +207,7 @@ def run_scraping(skip_existing=True):
         driver.get(category_url_map[category])
 
         # iterate over all pages and scrap the articles
-        scrap_articles_list(skip_existing=skip_existing, pages='60')
+        scrap_articles_list(skip_existing=skip_existing, pages=60)
 
 
 def save_articles():
