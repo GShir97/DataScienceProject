@@ -211,7 +211,7 @@ def run_scraping(skip_existing=True):
         driver.get(category_url_map[category])
 
         # iterate over all pages and scrap the articles
-        scrap_articles_list(skip_existing=skip_existing, pages=2)
+        scrap_articles_list(skip_existing=skip_existing, pages='60')
 
 
 def save_articles():
