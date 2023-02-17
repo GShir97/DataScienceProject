@@ -1,3 +1,4 @@
+# Setup
 import json
 import math
 import os
@@ -17,7 +18,7 @@ driver = webdriver.Chrome()
 # Navigate to the category
 category_url_map = {
     "military": "https://www.mako.co.il/news-military",
-    #"world": "https://www.mako.co.il/news-world",
+    "world": "https://www.mako.co.il/news-world",
     "entertainment": "https://www.mako.co.il/news-entertainment",
     "economy": "https://www.mako.co.il/news-money",
     "politics": "https://www.mako.co.il/news-politics",
@@ -33,6 +34,7 @@ skip_count = 0
 scrap_count = 0
 
 
+# Scraping articles function
 def scrap_article_page(element: WebElement, data):
     # use the keyboard shortcut "Ctrl + click" to open the link in a new tab
     element.send_keys(Keys.CONTROL + Keys.RETURN)
@@ -44,6 +46,7 @@ def scrap_article_page(element: WebElement, data):
     global scrap_count
     scrap_count += 1
 
+    # definition of important XPATH using while getting info from articles
     article_full_body = driver.find_element(By.XPATH, "//div[@id='article-wrap']/article")
     header_top = article_full_body.find_element(By.XPATH, ".//section[contains(@class,'article-header')]")
     header_container = header_top.find_element(By.XPATH, "./header")
@@ -51,11 +54,12 @@ def scrap_article_page(element: WebElement, data):
     data['short_description'] = header_container.find_element(By.XPATH, "./h2").text
     header_writer_container = header_container.find_element(By.XPATH, ".//div[@class='writer-data']")
     all_reporters_elements = header_writer_container.find_elements(By.XPATH, "./span[@itemprop='author']")
+    # getting all the reporters
     all_reporters = [driver.execute_script("return arguments[0].getAttribute('content');", elem) for elem in
                      all_reporters_elements]
     data['all_reporters'] = all_reporters
     data['num_of_reporters'] = len(all_reporters)
-
+    #getting the publish and update(if there is) timedate
     display_date_elem = header_container.find_element(By.XPATH, ".//span[@class='display-date']")
     display_date_text = display_date_elem.text
     dates = display_date_text.strip().split('|')[1:]
@@ -63,16 +67,21 @@ def scrap_article_page(element: WebElement, data):
     data['publish_timedate'] = dates_clean[0]
     if len(dates_clean) > 1:
         data['last_update_timedate'] = dates_clean[1]
+
+    # getting the views
     data['views'] = int(header_top.find_element(By.XPATH, ".//li[@class='views']").text.replace(',', ''))
+
+    # try to get the category
     try:
         data['category'] = article_full_body.find_element(By.XPATH, ".//nav/span/ul/li[@class=' here']").text
     except NoSuchElementException:
         print(f'No category for article: {data["title"]}')
         data['category'] = None
-
+    # getting the article full body
     content_body_elem = article_full_body.find_element(By.XPATH, ".//section[@class='article-body']")
     p_elements = content_body_elem.find_elements(By.XPATH, "./p")
     data['content'] = '\n\n'.join([p.text for p in p_elements])
+    # getting the url of the article
     data['url'] = driver.current_url
 
     # try to get the article interest (interested/not interested)
@@ -122,6 +131,7 @@ def scrap_articles_list(
             driver.get(current_url + '?page=1')
             continue
 
+        # get the page it is in
         pagination_elem = driver.find_element(By.XPATH, "//section[@class='pagination-lobby']")
         current_page_btn = pagination_elem.find_element(By.XPATH, ".//a[@class='currentPage']")
         current_page = int(current_page_btn.text)
@@ -134,6 +144,7 @@ def scrap_articles_list(
             driver.get(wanted_url)
             continue
 
+        # try to move to the next page
         try:
             next_page_elem = current_page_btn.find_element(By.XPATH, "./preceding-sibling::a[1]")
             next_page = int(next_page_elem.text)
@@ -144,6 +155,7 @@ def scrap_articles_list(
         ####### scrap article data ########
         print(f"Scraping page {current_page} of {pages}")
 
+        # the first page has a different XPATH
         if current_page == 1:
             articles = driver.find_elements(By.XPATH, "//html/body/div[6]/main/section[1]/section[6]/ul/li")
         else:
@@ -201,12 +213,13 @@ def scrap_articles_list(
 
             save_articles()
 
-        # go to next page
+        # try go to next page
         try:
             next_page_elem.click()
             page_count += 1
         except StaleElementReferenceException:
-            continue
+            print(f"Error in moving to the next page")
+            break
 
 
 def run_scraping(skip_existing=True):
@@ -249,6 +262,7 @@ if __name__ == '__main__':
     # run the scraping (will update the articles.json file as the scraping goes)
     run_scraping()
 
+    # totalization of the scrap
     print(f"skipped articles(in this run): {skip_count}")
     print(f"new scraped articles(in this run): {scrap_count}")
     print(f"total articles: {len(all_articles)}")
