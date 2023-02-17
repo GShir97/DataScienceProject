@@ -5,7 +5,7 @@ from datetime import datetime
 from urllib.parse import urlparse, parse_qs
 
 from selenium import webdriver
-from selenium.common import NoSuchElementException
+from selenium.common import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
@@ -17,11 +17,11 @@ driver = webdriver.Chrome()
 # Navigate to the category
 category_url_map = {
     "military": "https://www.mako.co.il/news-military",
-    "politics": "https://www.mako.co.il/news-politics",
-    "law": "https://www.mako.co.il/news-law",
-    "world": "https://www.mako.co.il/news-world",
+    #"world": "https://www.mako.co.il/news-world",
+    "entertainment": "https://www.mako.co.il/news-entertainment",
     "economy": "https://www.mako.co.il/news-money",
-    "entertainment": "https://www.mako.co.il/news-entertainment"
+    "politics": "https://www.mako.co.il/news-politics",
+    "law": "https://www.mako.co.il/news-law"
 }
 
 # will contain all articles and their data
@@ -145,7 +145,7 @@ def scrap_articles_list(
         print(f"Scraping page {current_page} of {pages}")
 
         if current_page == 1:
-            articles = driver.find_elements(By.XPATH, "//html/body/div[6]/main/section[1]/section[3]/ul/li")
+            articles = driver.find_elements(By.XPATH, "//html/body/div[6]/main/section[1]/section[6]/ul/li")
         else:
             articles = driver.find_elements(By.XPATH, "//html/body/div[6]/main/section[1]/section[1]/ul/li | //html/body/div[6]/main/section[1]/section[3]/ul/li")
 
@@ -170,7 +170,13 @@ def scrap_articles_list(
                 "url": "",
             }
 
-            article_link = article.find_element(By.XPATH, ".//strong/a")
+            try:
+                article_link = article.find_element(By.XPATH, ".//strong/a")
+            except Exception as e:
+                print(f"Error in article {article_name}: {e}")
+                article_data = 'error!' + str(e)
+                continue
+
             article_name = article_link.text
             article_data['title'] = article_name
 
@@ -196,8 +202,11 @@ def scrap_articles_list(
             save_articles()
 
         # go to next page
-        next_page_elem.click()
-        page_count += 1
+        try:
+            next_page_elem.click()
+            page_count += 1
+        except StaleElementReferenceException:
+            continue
 
 
 def run_scraping(skip_existing=True):
@@ -207,7 +216,7 @@ def run_scraping(skip_existing=True):
         driver.get(category_url_map[category])
 
         # iterate over all pages and scrap the articles
-        scrap_articles_list(skip_existing=skip_existing, pages=60)
+        scrap_articles_list(skip_existing=skip_existing, pages=80)
 
 
 def save_articles():
