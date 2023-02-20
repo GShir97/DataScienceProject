@@ -13,7 +13,6 @@ from selenium.webdriver.remote.webelement import WebElement
 
 # Use ChromeDriver as the web driver
 driver = webdriver.Chrome()
-# driver.implicitly_wait(12)
 
 # Navigate to the category
 category_url_map = {
@@ -46,7 +45,7 @@ def scrap_article_page(element: WebElement, data):
     global scrap_count
     scrap_count += 1
 
-    # definition of important XPATH using while getting info from articles
+    # definition of important XPATH, using while getting info from articles
     article_full_body = driver.find_element(By.XPATH, "//div[@id='article-wrap']/article")
     header_top = article_full_body.find_element(By.XPATH, ".//section[contains(@class,'article-header')]")
     header_container = header_top.find_element(By.XPATH, "./header")
@@ -77,7 +76,7 @@ def scrap_article_page(element: WebElement, data):
     except NoSuchElementException:
         print(f'No category for article: {data["title"]}')
         data['category'] = None
-    # getting the article full body
+    # getting the article's full body
     content_body_elem = article_full_body.find_element(By.XPATH, ".//section[@class='article-body']")
     p_elements = content_body_elem.find_elements(By.XPATH, "./p")
     data['content'] = '\n\n'.join([p.text for p in p_elements])
@@ -102,15 +101,15 @@ def scrap_article_page(element: WebElement, data):
 
 
 
-    # close the window the article
+ # close the window of the article
     driver.close()
     driver.switch_to.window(driver.window_handles[0])
 
 
-# scrap the data from list of articles and save the data to a json file
+# scrape the data from list of articles and save the data to a json file
 def scrap_articles_list(
         skip_existing=True,  # skip articles that already exist in the json file
-        pages='all',  # number of pages to scrap, 'all' for all pages
+        pages='all',  # number of pages to scrape, 'all' for all pages
         page_start=1  # the page to start scraping from
 ):
     if pages == 'all':
@@ -120,7 +119,7 @@ def scrap_articles_list(
     while True:
         if page_count >= pages:
             break
-        ####### make sure that in the desired page ########
+        ## make sure that in the desired page
         # get the url of current page
         current_url = driver.current_url
         # parse 'page' query param from url(if exists)
@@ -152,7 +151,7 @@ def scrap_articles_list(
             print('Last page reached')
             break
 
-        ####### scrap article data ########
+        ####### scrape article data ########
         print(f"Scraping page {current_page} of {pages}")
 
         # the first page has a different XPATH
@@ -199,7 +198,7 @@ def scrap_articles_list(
                 skip_count += 1
                 continue
 
-            # scrap the articles data and add to the list
+            # scrape the articles data and add to the list
             article_data['main_reporter'] = article.find_element(By.XPATH, ".//small/span").text
             try:
                 scrap_article_page(article_link, article_data)
@@ -213,7 +212,7 @@ def scrap_articles_list(
 
             save_articles()
 
-        # try go to next page
+        # try to go to next page
         try:
             next_page_elem.click()
             page_count += 1
@@ -228,7 +227,7 @@ def run_scraping(skip_existing=True):
         print(f"scraping category: {category}")
         driver.get(category_url_map[category])
 
-        # iterate over all pages and scrap the articles
+        # iterate over all pages and scrape the articles
         scrap_articles_list(skip_existing=skip_existing, pages=80)
 
 
@@ -245,7 +244,7 @@ def save_articles():
 
 
 def load_articles():
-    # if articles.json doe not exists, create it(with utf-8 encoding to support hebrew
+    # if articles.json does not exist, create it(with utf-8 encoding to support hebrew
     if not os.path.exists('articles.json'):
         with open('articles.json', 'w', encoding='utf-8') as f:
             f.write('{"scraping_metedata": {}, "data": {}}')
